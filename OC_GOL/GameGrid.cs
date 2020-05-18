@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace OC_GOL
 {
@@ -13,37 +11,25 @@ namespace OC_GOL
             _cells = new Cell[size, size];
         }
 
-        private int GetSize() => (int)Math.Sqrt(_cells.Length);
+        private int GetSize() => _cells.GetUpperBound(0)+1;
 
-        public void Populate(bool[] seed = null)
+        public void Populate(bool[] seed)
         {
-            if (seed?.Length != _cells.Length)
-            {
-                var seedList = GetRandomSeed();
-                seed = seedList.ToArray();
-            }
-
             for (int i = 0; i < seed.Length; i++)
                 _cells[i / GetSize(), i % GetSize()] = new Cell(seed[i]);
-        }
-
-        private IEnumerable<bool> GetRandomSeed()
-        {
-            Random random = new Random(GetSize());
-            for (int i = 0; i < _cells.Length; i++)
-                yield return random.Next(0, 5) == 0;
         }
 
         internal void Print()
         {
             for (int i = 0; i < GetSize(); i++)
-                PrintRow(i, GetSize());
+                PrintRow(i);
         }
 
-        private void PrintRow(int row, int size)
+        private void PrintRow(int row)
         {
-            for (int cell = 0; cell < size; cell++)
+            for (int cell = 0; cell < GetSize(); cell++)
                 _cells[row, cell].Print();
+
             Console.WriteLine();
         }
 
@@ -57,17 +43,14 @@ namespace OC_GOL
                 int cell = i % GetSize();
 
                 Cell[] neighbours = GetNeighbours(row, cell, clone);
-                this._cells[row, cell].Transform(neighbours);
+                _cells[row, cell].Transform(neighbours);
             }
         }
 
-        /// <summary>
-        /// Das ist kake. Ganze Klasse evtl. auf 50 Zeilen
-        /// </summary>
         private Cell[] GetNeighbours(int row, int cell, Cell[,] clone)
         {
-            Cell[] neighbours = new Cell[GetSize()];
-
+            Cell[] neighbours = new Cell[8];
+            
             if (cell > 0) neighbours[0] = clone[row, cell - 1];
             if (cell < GetSize() - 1) neighbours[1] = clone[row, cell + 1];
             if (row > 0 && cell > 0) neighbours[2] = clone[row - 1, cell - 1];

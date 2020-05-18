@@ -1,5 +1,6 @@
-﻿
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OC_GOL
 {
@@ -11,8 +12,25 @@ namespace OC_GOL
         public Game(bool[] seed = null, uint size = 8)
         {
             _grid = new GameGrid(size);
+
+            if (seed?.Length != size * size)
+            {
+                var seedList = GetRandomSeed(size);
+                seed = seedList.ToArray();
+            }
+
             _grid.Populate(seed);
             Print();
+        }
+
+        private IEnumerable<bool> GetRandomSeed(uint size)
+        {
+            uint cellCount = size * size;
+            
+            // 20 % leben zu beginn
+            Random random = new Random((int)size);
+            for (int i = 0; i < cellCount; i++)
+                yield return random.Next(0, 5) == 0;
         }
 
         public void Transform()
