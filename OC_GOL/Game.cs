@@ -11,7 +11,6 @@ namespace OC_GOL
 
         public Game(bool[] seed = null, uint size = 8)
         {
-            _grid = new GameGrid(size);
 
             if (seed?.Length != size * size)
             {
@@ -19,7 +18,8 @@ namespace OC_GOL
                 seed = seedList.ToArray();
             }
 
-            _grid.Populate(seed);
+            _grid = new GameGrid(size, seed);
+
             Print();
         }
 
