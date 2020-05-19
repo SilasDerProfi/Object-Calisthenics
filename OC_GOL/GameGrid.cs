@@ -8,27 +8,30 @@ namespace OC_GOL
 
         public GameGrid(uint size)
         {
-            _cells = new Cell[size, size];
+            _cells = new Cell[size + 2, size + 2];
         }
 
-        private int GetSize() => _cells.GetUpperBound(0)+1;
+        private int GetSize() => _cells.GetUpperBound(0) - 1;
+        private int GetLength() => GetSize() * GetSize();
+        private int GetRow(int i) => i / GetSize() + 1;
+        private int GetColumn(int i) => i % GetSize() + 1;
 
         public void Populate(bool[] seed)
         {
-            for (int i = 0; i < seed.Length; i++)
-                _cells[i / GetSize(), i % GetSize()] = new Cell(seed[i]);
+            for (int i = 0; i < GetLength(); i++)
+                _cells[GetRow(i), GetColumn(i)] = new Cell(seed[i]);
         }
 
         internal void Print()
         {
-            for (int i = 0; i < GetSize(); i++)
+            for (int i = 1; i < GetSize(); i++)
                 PrintRow(i);
         }
 
         private void PrintRow(int row)
         {
-            for (int cell = 0; cell < GetSize(); cell++)
-                _cells[row, cell].Print();
+            for (int column = 1; column < GetSize(); column++)
+                _cells[row, column].Print();
 
             Console.WriteLine();
         }
@@ -37,30 +40,18 @@ namespace OC_GOL
         {
             Cell[,] clone = (Cell[,])_cells.Clone();
 
-            for (int i = 0; i < _cells.Length; i++)
+            for (int i = 0; i < GetLength(); i++)
             {
-                int row = i / GetSize();
-                int cell = i % GetSize();
-
-                Cell[] neighbours = GetNeighbours(row, cell, clone);
-                _cells[row, cell].Transform(neighbours);
+                Cell[] neighbours = GetNeighbours(GetRow(i), GetColumn(i), clone);
+                _cells[GetRow(i), GetColumn(i)].Transform(neighbours);
             }
         }
 
-        private Cell[] GetNeighbours(int row, int cell, Cell[,] clone)
+        private Cell[] GetNeighbours(int row, int column, Cell[,] clone) => new Cell[]
         {
-            Cell[] neighbours = new Cell[8];
-            
-            if (cell > 0) neighbours[0] = clone[row, cell - 1];
-            if (cell < GetSize() - 1) neighbours[1] = clone[row, cell + 1];
-            if (row > 0 && cell > 0) neighbours[2] = clone[row - 1, cell - 1];
-            if (row > 0) neighbours[3] = clone[row - 1, cell];
-            if (row > 0 && cell < GetSize() - 1) neighbours[4] = clone[row - 1, cell + 1];
-            if (row < GetSize() - 1 && cell > 0) neighbours[5] = clone[row + 1, cell - 1];
-            if (row < GetSize() - 1) neighbours[6] = clone[row + 1, cell];
-            if (row < GetSize() - 1 && cell < GetSize() - 1) neighbours[7] = clone[row + 1, cell + 1];
-
-            return neighbours;
-        }
+            clone[row, column - 1], clone[row, column + 1], clone[row - 1, column - 1],
+            clone[row - 1, column], clone[row - 1, column + 1], clone[row + 1, column - 1],
+            clone[row + 1, column], clone[row + 1, column + 1]
+        };
     }
 }
