@@ -6,7 +6,7 @@ namespace OC_GOL
     {
         static void Main(string[] args)
         {
-            var game = new Game(null, 30);
+            var game = new Game(null, 24);
 
             while (Console.ReadLine() != "Exit")
             {

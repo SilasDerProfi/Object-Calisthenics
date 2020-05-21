@@ -11,7 +11,6 @@ namespace OC_GOL
 
         public Game(bool[] seed = null, uint size = 8)
         {
-
             if (seed?.Length != size * size)
             {
                 var seedList = GetRandomSeed(size);
