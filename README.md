@@ -1,2 +1,4 @@
-# OC_GOL
+# OC
 Object Calisthenics: Game of life
+
+Object Calisthenics: Minesweeper
