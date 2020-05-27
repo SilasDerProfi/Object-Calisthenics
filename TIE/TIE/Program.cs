@@ -1,28 +1,23 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OC_MS
+namespace TIE
 {
-    public static class Program
+    static class Program
     {
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(String[] args)
+        static void Main()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-
-            if (!(args.Length == 2 && Int32.TryParse(args[0], out int sizeX) && Int32.TryParse(args[1], out int sizeY)))
-            {
-                sizeX = 10;
-                sizeY = 10;
-            }
-
-            Application.Run(new Game(sizeX, sizeY));
+            Application.Run(new Form1());
         }
     }
 }

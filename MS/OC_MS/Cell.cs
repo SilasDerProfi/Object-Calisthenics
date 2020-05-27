@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace OC_MS
 {
@@ -23,12 +22,13 @@ namespace OC_MS
             SetApperance();
         }
 
-        private void OnLeftclick(object sender, EventArgs e)
+        private void OnLeftclick(object sender, System.EventArgs e)
         {
             SetApperance(true);
             Enabled = false;
             
             if (_neighbourMines == -1) MessageBox.Show("You lost.");
+
             if (_neighbourMines == 0) (Parent as Game)?.RevealNeighbours(Name);
         }
 

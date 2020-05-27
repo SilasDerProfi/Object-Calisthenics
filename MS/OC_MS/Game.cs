@@ -30,7 +30,7 @@ namespace OC_MS
         public void UpdateAmount(bool decrease)
         {
             _mineCount += decrease ? -1 : 1;
-            this.Text = $"Minesweeper ({_mineCount})";
+            Text = $"Minesweeper ({_mineCount})";
         }
 
         public void RevealNeighbours(string name)

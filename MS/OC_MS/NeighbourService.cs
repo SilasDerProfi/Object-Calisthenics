@@ -12,6 +12,7 @@ namespace OC_MS
             int row = index / rowLength;
             int col = index % rowLength;
 
+            // Nachbarn oben
             if (row > 0 && col > 0)
                 neighbours.Add(index - rowLength - 1);
             if (row > 0)
@@ -19,18 +20,19 @@ namespace OC_MS
             if (row > 0 && col < rowLength - 1)
                 neighbours.Add(index - rowLength + 1);
 
+            // Nachbarn links und rechts
             if (col > 0)
                 neighbours.Add(index - 1);
             if (col < rowLength - 1)
                 neighbours.Add(index + 1);
 
+            // Nachbarn unten
             if (row < rowCount - 1 && col > 0)
                 neighbours.Add(index + rowLength - 1);
             if (row < rowCount - 1)
                 neighbours.Add(index + rowLength);
             if (row < rowCount - 1 && col < rowLength - 1)
                 neighbours.Add(index + rowLength + 1);
-
 
             return neighbours;
         }

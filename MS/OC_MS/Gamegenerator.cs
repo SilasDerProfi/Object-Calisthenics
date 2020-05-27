@@ -10,16 +10,16 @@ namespace OC_MS
         {
             int[] mineGrid = new int[sizeX * sizeY];
 
-            var r = new Random();
+            var random = new Random();
             var mineLocations = new HashSet<int>(mineCount);
-            var neighbours = new List<int>();
             while (mineLocations.Count < mineCount)
             {
-                var location = r.Next(0, mineGrid.Length);
+                var location = random.Next(0, mineGrid.Length);
                 mineLocations.Add(location);
                 mineGrid[location] = -1;
             }
 
+            var neighbours = new List<int>();
             foreach(var mine in mineLocations)
             {
                 var currentNeighbours = NeighbourService.GetNeighbours(mine, sizeX, sizeY);
@@ -30,7 +30,6 @@ namespace OC_MS
 
             foreach (var neighbourIndex in safeNeighbours)
                 mineGrid[neighbourIndex]++;
-
 
             return mineGrid;
         }
