@@ -7,7 +7,6 @@ namespace TIE
     {
         public Form1()
         {
-            var p = new Platelet(8, 9, 7);
 
             PictureBox pb = new PictureBox
             {
@@ -17,45 +16,47 @@ namespace TIE
                 Image = new Bitmap(760 * 4, 660 * 5)
             };
 
-            using (var g = Graphics.FromImage(pb.Image))
-            {
-                var yPosition = new int[] {0, 660 * 1, 660 * 2, 660 * 3 , 660 * 4 };
-                var yOffset = 660 / 2;
+            var p = new Platelet(8, 9, 7);
 
-                g.FillRectangle(Brushes.Black, 0, 0, pb.Width, pb.Height);
+            using var g = Graphics.FromImage(pb.Image);
 
-                g.DrawImage(p.display, 0, yPosition[1], 760, 660);
-                g.DrawImage(p.display, 0, yPosition[2], 760, 660);
-                g.DrawImage(p.display, 0, yPosition[3], 760, 660);
-                
-                var xPosition = (int)(760 * 0.75);
+            var yPosition = new int[] { 0, 660 * 1, 660 * 2, 660 * 3, 660 * 4 };
+            var yOffset = 660 / 2;
 
-                g.DrawImage(p.display, xPosition, yOffset + yPosition[0], 760, 660);
-                g.DrawImage(p.display, xPosition, yOffset + yPosition[1], 760, 660);
-                g.DrawImage(p.display, xPosition, yOffset + yPosition[2], 760, 660);
-                g.DrawImage(p.display, xPosition, yOffset + yPosition[3], 760, 660);
+            g.FillRectangle(Brushes.Black, 0, 0, pb.Width, pb.Height);
 
-                xPosition += (int)(760 * 0.75);
+            g.DrawImage(p.display, 0, yPosition[1], 760, 660);
+            g.DrawImage(p.display, 0, yPosition[2], 760, 660);
+            g.DrawImage(p.display, 0, yPosition[3], 760, 660);
 
-                g.DrawImage(p.display, xPosition, yPosition[0], 760, 660);
-                g.DrawImage(p.display, xPosition, yPosition[1], 760, 660);
-                g.DrawImage(p.display, xPosition, yPosition[2], 760, 660);
-                g.DrawImage(p.display, xPosition, yPosition[3], 760, 660);
-                g.DrawImage(p.display, xPosition, yPosition[4], 760, 660);
+            var xPosition = (int)(760 * 0.75);
 
-                xPosition += (int)(760 * 0.75);
+            g.DrawImage(p.display, xPosition, yOffset + yPosition[0], 760, 660);
+            g.DrawImage(p.display, xPosition, yOffset + yPosition[1], 760, 660);
+            g.DrawImage(p.display, xPosition, yOffset + yPosition[2], 760, 660);
+            g.DrawImage(p.display, xPosition, yOffset + yPosition[3], 760, 660);
 
-                g.DrawImage(p.display, xPosition, yOffset + yPosition[0], 760, 660);
-                g.DrawImage(p.display, xPosition, yOffset + yPosition[1], 760, 660);
-                g.DrawImage(p.display, xPosition, yOffset + yPosition[2], 760, 660);
-                g.DrawImage(p.display, xPosition, yOffset + yPosition[3], 760, 660);
+            xPosition += (int)(760 * 0.75);
 
-                xPosition += (int)(760 * 0.75);
+            g.DrawImage(p.display, xPosition, yPosition[0], 760, 660);
+            g.DrawImage(p.display, xPosition, yPosition[1], 760, 660);
+            g.DrawImage(p.display, xPosition, yPosition[2], 760, 660);
+            g.DrawImage(p.display, xPosition, yPosition[3], 760, 660);
+            g.DrawImage(p.display, xPosition, yPosition[4], 760, 660);
 
-                g.DrawImage(p.display, xPosition, yPosition[1], 760, 660);
-                g.DrawImage(p.display, xPosition, yPosition[2], 760, 660);
-                g.DrawImage(p.display, xPosition, yPosition[3], 760, 660);
-            }
+            xPosition += (int)(760 * 0.75);
+
+            g.DrawImage(p.display, xPosition, yOffset + yPosition[0], 760, 660);
+            g.DrawImage(p.display, xPosition, yOffset + yPosition[1], 760, 660);
+            g.DrawImage(p.display, xPosition, yOffset + yPosition[2], 760, 660);
+            g.DrawImage(p.display, xPosition, yOffset + yPosition[3], 760, 660);
+
+            xPosition += (int)(760 * 0.75);
+
+            g.DrawImage(p.display, xPosition, yPosition[1], 760, 660);
+            g.DrawImage(p.display, xPosition, yPosition[2], 760, 660);
+            g.DrawImage(p.display, xPosition, yPosition[3], 760, 660);
+
 
             this.Controls.Add(pb);
 

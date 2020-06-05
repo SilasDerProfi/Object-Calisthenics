@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <RepositoryUrl>https://github.com/SilasDerProfi/Object-Calisthenics</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/SilasDerProfi/Object-Calisthenics</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants />
+    <OutputPath></OutputPath>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;.\bin\Release\netcoreapp3.0\OC_CONST_TYPES.dll&quot; &quot;.\..\&quot; /Y" />
+  </Target>
+
+</Project>
