@@ -30,3 +30,5 @@ Strategic board game by Peter Burley. Implemented mainly with GDI+ basic graphic
 ## OC_CONST_TYPES: .Net Core Library for emulating final variables
 
 Provides a generic struct with a readonly Property of T.
+
+It is not 100% equivalent to the behaviour of final variables, but when reading the code you can see what is meant and at least some restrictions are possible.
