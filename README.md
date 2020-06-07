@@ -3,7 +3,7 @@
 All projects in this repository comply with the rules for the object calisthenics:
 1. Only one level of indentation per method
 2. Don’t use `else`, `else if` or `switch/case`
-3. Wrap all primitives and strings (this is unfortunately a problem with C#)
+3. Wrap all primitives and strings
 4. Only one dot per line
 5. Don't abbreviate variable names
 6. Keep all entities small (~50 Lines, >= 10 classes per Folder)
@@ -26,9 +26,3 @@ Classic Minesweeper as a console application
 ## TIE: Take it easy (Hextension)
 
 Strategic board game by Peter Burley. Implemented mainly with GDI+ basic graphics functionality.
-
-## OC_CONST_TYPES: .Net Core Library for emulating final variables
-
-Provides a generic struct with a readonly Property of T.
-
-It is not 100% equivalent to the behaviour of final variables, but when reading the code you can see what is meant and at least some restrictions are possible.
