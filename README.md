@@ -19,10 +19,10 @@ Conway's Game of Life as a console application
 
 Classic Minesweeper with a Windows Forms UI
 
-## MS_CLI: Minesweeper (Console)
+## TBA: MS_CLI: Minesweeper (Console)
 
 Classic Minesweeper as a console application
 
-## TIE: Take it easy (Hextension)
+## WIP: TIE: Take it easy (Hextension)
 
 Strategic board game by Peter Burley. Implemented mainly with GDI+ basic graphics functionality.
