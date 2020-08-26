@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
+using System.Security.Policy;
 using TIE.Data;
 
 namespace TIE
@@ -8,6 +8,7 @@ namespace TIE
     internal class Platelet
     {
         private readonly Bitmap display;
+        private PlateletPrinter plateletPrinter;
 
         public Platelet(PlateletValue leftValue = null, PlateletValue centerValue = null, PlateletValue rightvalue = null)
         {
@@ -37,11 +38,30 @@ namespace TIE
             graphics.DrawLine(pen, 380, 0, 380, 660);
         }
 
-        internal void Draw(Graphics g, int v1, int v2, int v3, int v4) => g.DrawImage(display, v1, v2, v3, v4);
+        internal void Draw(Graphics g, int x, int y, int width, int height) => g.DrawImage(display, x, y, width, height);
 
-        internal bool Draw(Graphics g)
+        internal bool Draw(Graphics g, Point location, Size size)
         {
-            throw new NotImplementedException();
+            if(plateletPrinter == null)
+            {
+                // Einrastfunktion
+                Draw(g, location.X - size.Width/2, location.Y - size.Height/2, size.Width, size.Height);
+                return false;
+            }
+
+            plateletPrinter.DrawImage(g, display);
+            return true;
+        }
+
+        internal bool Place(Point location, Size size)
+        {
+            if (plateletPrinter == null)
+            {
+                // platzieren wie es grade passt
+                return true;
+            }
+
+            return false;
         }
     }
 }

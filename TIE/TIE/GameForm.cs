@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using TIE.Data;
 using TIE.Extensions;
@@ -10,7 +9,7 @@ namespace TIE
 {
     public class GameForm : Form
     {
-        private List<Platelet> _platelets = new List<Platelet>();
+        private readonly List<Platelet> _platelets = new List<Platelet>();
         public GameForm()
         {
             PictureBox pb = new PictureBox
@@ -25,42 +24,19 @@ namespace TIE
 
             var p = new Platelet();
             using var g = Graphics.FromImage(pb.Image);
-
-            var yPosition = new int[] { 0, 660 * 1, 660 * 2, 660 * 3, 660 * 4 };
-            var yOffset = 660 / 2;
-
             g.FillRectangle(Brushes.Black, 0, 0, pb.Width, pb.Height);
 
-            p.Draw(g, 0, yPosition[1], 760, 660);
-            p.Draw(g, 0, yPosition[1], 760, 660);
-            p.Draw(g, 0, yPosition[2], 760, 660);
-            p.Draw(g, 0, yPosition[3], 760, 660);
+            var positioningHelper = new PositioningHelper(pb.Image.Size);
 
-            var xPosition = (int)(760 * 0.75);
-            p.Draw(g, xPosition, yOffset + yPosition[0], 760, 660);
-            p.Draw(g, xPosition, yOffset + yPosition[1], 760, 660);
-            p.Draw(g, xPosition, yOffset + yPosition[2], 760, 660);
-            p.Draw(g, xPosition, yOffset + yPosition[3], 760, 660);
+            for(int FieldIndex = 0; FieldIndex < 19; FieldIndex++)
+                positioningHelper.PlaceAt(g, p, FieldIndex);
 
-            xPosition += (int)(760 * 0.75);
-            p.Draw(g, xPosition, yPosition[0], 760, 660);
-            p.Draw(g, xPosition, yPosition[1], 760, 660);
-            p.Draw(g, xPosition, yPosition[2], 760, 660);
-            p.Draw(g, xPosition, yPosition[3], 760, 660);
-            p.Draw(g, xPosition, yPosition[4], 760, 660);
 
-            xPosition += (int)(760 * 0.75);
-            p.Draw(g, xPosition, yOffset + yPosition[0], 760, 660);
-            p.Draw(g, xPosition, yOffset + yPosition[1], 760, 660);
-            p.Draw(g, xPosition, yOffset + yPosition[2], 760, 660);
-            p.Draw(g, xPosition, yOffset + yPosition[3], 760, 660);
 
-            xPosition += (int)(760 * 0.75);
-            p.Draw(g, xPosition, yPosition[1], 760, 660);
-            p.Draw(g, xPosition, yPosition[2], 760, 660);
-            p.Draw(g, xPosition, yPosition[3], 760, 660);
 
             this.Controls.Add(pb);
+
+
 
             var stringPlatelets = Properties.Resources.Platelets.Split(Environment.NewLine);
 
@@ -76,12 +52,27 @@ namespace TIE
             _platelets.Shuffle();
 
             pb.MouseMove += (sender, e) => ((Control)sender).Invalidate();
-            pb.Paint += Paint;
+            pb.Paint += PaintPlatelets;
+            pb.MouseClick += Place;
+            Cursor.Hide();
         }
 
-        private void Paint(object sender, PaintEventArgs e)
+        private void Place(object sender, MouseEventArgs e)
         {
-            for (int i = 0; _platelets[i].Draw(e.Graphics); i++) ;
+            if (e.Button == MouseButtons.Left)
+            {
+                var size = this.ClientSize / 5;
+                var mousePosition = PointToClient(Cursor.Position);
+
+                for (int i = 0; !_platelets[i].Place(mousePosition, size); i++) ;
+            }
+        }
+
+        private void PaintPlatelets(object sender, PaintEventArgs e)
+        {
+            var size = this.ClientSize / 5;
+            var mousePosition = PointToClient(Cursor.Position);
+            for (int i = 0; _platelets[i].Draw(e.Graphics, mousePosition, size); i++) ;
         }
     }
 }
