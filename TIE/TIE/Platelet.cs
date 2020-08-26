@@ -53,14 +53,24 @@ namespace TIE
             return true;
         }
 
-        internal bool Place(Point location, Size size)
+        internal bool Place(PlateletPrinter plateletPrinter)
+        {
+            if (this.plateletPrinter != null)
+                return false;
+
+            this.plateletPrinter = plateletPrinter;
+            return true;
+        }
+
+        internal bool Draw(Graphics g, PlateletPrinter best)
         {
             if (plateletPrinter == null)
             {
-                // platzieren wie es grade passt
+                best.DrawImage(g, display);
                 return true;
             }
 
+            plateletPrinter.DrawImage(g, display);
             return false;
         }
     }

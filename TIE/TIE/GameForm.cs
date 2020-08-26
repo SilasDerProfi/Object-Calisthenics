@@ -28,15 +28,10 @@ namespace TIE
 
             var positioningHelper = new PositioningHelper(pb.Image.Size);
 
-            for(int FieldIndex = 0; FieldIndex < 19; FieldIndex++)
-                positioningHelper.PlaceAt(g, p, FieldIndex);
-
-
-
+            for(int fieldIndex = 0; fieldIndex < 19; fieldIndex++)
+                positioningHelper.Draw(g, p, fieldIndex);
 
             this.Controls.Add(pb);
-
-
 
             var stringPlatelets = Properties.Resources.Platelets.Split(Environment.NewLine);
 
@@ -54,25 +49,26 @@ namespace TIE
             pb.MouseMove += (sender, e) => ((Control)sender).Invalidate();
             pb.Paint += PaintPlatelets;
             pb.MouseClick += Place;
-            Cursor.Hide();
+            //Cursor.Hide();
         }
 
         private void Place(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                var size = this.ClientSize / 5;
+                var positioningHelper = new PositioningHelper(this.ClientSize);
                 var mousePosition = PointToClient(Cursor.Position);
 
-                for (int i = 0; !_platelets[i].Place(mousePosition, size); i++) ;
+                for (int i = 0; !positioningHelper.PlaceAt( _platelets[i], mousePosition); i++) ;
             }
         }
 
         private void PaintPlatelets(object sender, PaintEventArgs e)
         {
-            var size = this.ClientSize / 5;
+            var positioningHelper = new PositioningHelper(this.ClientSize);
             var mousePosition = PointToClient(Cursor.Position);
-            for (int i = 0; _platelets[i].Draw(e.Graphics, mousePosition, size); i++) ;
+            
+            for (int i = 0; !positioningHelper.Draw(e.Graphics, _platelets[i], mousePosition); i++) ;
         }
     }
 }
