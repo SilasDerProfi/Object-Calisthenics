@@ -6,7 +6,7 @@ All projects in this repository comply with the rules for the object calisthenic
 3. Wrap all primitives and strings
 4. Only one method call per line
 5. Don't abbreviate variable names
-6. Keep all entities small (~50 Lines, >= 10 classes per Folder)
+6. Keep all entities small (~50 Lines, <= 10 classes per Folder)
 7. Maximum 2 instance variables per class
 8. First Class Collections (A collection or other instance variables, not both)
 9. No getters, setters or other constructs to read data from a class
